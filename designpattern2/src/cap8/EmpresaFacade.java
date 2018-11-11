@@ -4,7 +4,7 @@ public class EmpresaFacade {
 	
 	protected EmpresaFacade(){}
 	
-	public Cliente buscaCliente(String cpf){
+	/*public Cliente buscaCliente(String cpf){
 		Cliente cliente = new ClienteDao().buscaPorCpf(cpf);
 	}
 	
@@ -25,5 +25,5 @@ public class EmpresaFacade {
 		contato.dispara();
 		
 		return contato;
-	}
+	}*/
 }
