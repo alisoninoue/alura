@@ -1,0 +1,8 @@
+Fazer o download do apache active-mq
+Na pasta bin, executar o activemq.bat
+Acessar o MOM (middleware orientado a mensagem) pela url: http://localhost:8161
+    user: admin
+    pass: admin
+Implementação utiliza o padrão JMS do java EE
+Queue - envia mensagens para um consumidor apenas, caso exista mais de um consumidor, faz o load balance das mensagens
+Topic - send broadcast messages to the subscribers.

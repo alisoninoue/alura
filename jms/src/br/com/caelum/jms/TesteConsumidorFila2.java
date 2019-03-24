@@ -1,23 +1,10 @@
 package br.com.caelum.jms;
 
+import javax.jms.*;
+import javax.naming.InitialContext;
 import java.util.Scanner;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.naming.InitialContext;
-/*
-	DLQ - DEAD LETTER QUEUE - mensagens não entregues devido erro
-	Configurar o jndi.properties
-	 	queue.DLQ = ActiveMQ.DLQ
-*/
-public class TesteConsumidorDLQ {
+public class TesteConsumidorFila2 {
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
@@ -27,9 +14,9 @@ public class TesteConsumidorDLQ {
 		
 		Connection connection = factory.createConnection(); 
 		connection.start();
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		Session session = connection.createSession(true, Session.SESSION_TRANSACTED);
 		
-		Destination fila = (Destination) context.lookup("DLQ");
+		Destination fila = (Destination) context.lookup("financeiro");
 		MessageConsumer consumer = session.createConsumer(fila );
 		
 		consumer.setMessageListener(new MessageListener() {
@@ -37,7 +24,14 @@ public class TesteConsumidorDLQ {
 			@Override
 			public void onMessage(Message message) {
 
-				System.out.println(message);
+				TextMessage textMessage = (TextMessage)message;
+				try {
+					//message.acknowledge();
+					System.out.println(textMessage.getText());
+					//session.rollback();
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
 			}
 			
 		});

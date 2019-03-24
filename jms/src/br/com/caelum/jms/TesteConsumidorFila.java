@@ -37,7 +37,7 @@ public class TesteConsumidorFila {
 				try {
 					//message.acknowledge();
 					System.out.println(textMessage.getText());
-					session.rollback();
+					//session.rollback();
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}
