@@ -26,9 +26,11 @@ public class TesteConsumidorTopicoEstoque {
 		
 		connection.start();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		
+
+		//busca pelo tópico "loja" definido na jndi.properties
 		Topic topico = (Topic) context.lookup("loja");
-		
+
+		//define assinatura duravel no tópico, permitindo que o consumidor receba as mensagens mesmo após estar off-line
 		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura");
 		
 		consumer.setMessageListener(new MessageListener() {
